@@ -85,48 +85,21 @@ document.getElementById('btn-remove').addEventListener('click',function(){
     document.getElementById('input-panel').style.display = 'none';
     document.getElementById('reset').style.display = 'block';
     var num = parseInt(document.getElementById('input-num').value);
-    if(num <= 0 || num > 20) return;
+    if(num <= 0 || num > 12) return;
 
     for(var i in loadedModel){
-        //check num sticker
-        if(loadedModel[i].name.includes('num-'))
-        {
-            var tubeNum = parseInt(loadedModel[i].name.substring(4,6));
-            if(tubeNum == ((num>10)?(num-10):num))
-                addSectionAnimation(loadedModel[i],30)
-        }
-        if(num > 10)
+        if(num > 6)
         {
             //check section
-            if(loadedModel[i].name == 'section-01') addSectionAnimation(loadedModel[i],90);
-            if(loadedModel[i].name == 'section-02') addSectionAnimation(loadedModel[i],48);
+            if(loadedModel[i].name == 'section-001') addSectionAnimation(loadedModel[i],90);
+            if(loadedModel[i].name == 'section-002') addSectionAnimation(loadedModel[i],32);
 
-            if(loadedModel[i].name.includes('tube-') && !loadedModel[i].name.includes('tube-sticker')){
-                var tubeNum = parseInt(loadedModel[i].name.substring(5,7));
-                if(tubeNum < 12) addSectionAnimation(loadedModel[i],90);
-                else addSectionAnimation(loadedModel[i],48);
-            }
+            if(loadedModel[i].name.includes('sticker-')){
+                var tubeNum = parseInt(loadedModel[i].name.substring(8,11));
+                if(tubeNum <= 6) addSectionAnimation(loadedModel[i],90);
+                else addSectionAnimation(loadedModel[i],32);
 
-            if(loadedModel[i].name.includes('tube-sticker-')){
-                var stickerNum = parseInt(loadedModel[i].name.substring(14,17));
-                if(stickerNum < 12) addSectionAnimation(loadedModel[i],90);
-                else addSectionAnimation(loadedModel[i],48);
-            }
-
-            //check tube
-            if(loadedModel[i].name.includes('tube-') && !loadedModel[i].name.includes('tube-sticker')){
-                var tubeNum = parseInt(loadedModel[i].name.substring(5,7));
-                if(tubeNum == (num + 1)){
-                    let tmpModel = loadedModel[i];
-                    setTimeout(() => {
-                        addIlluminateAnimation(tmpModel);
-                    }, 1000);
-                }
-            }
-            if(loadedModel[i].name.includes('tube-sticker-')){
-                var stickerNum = parseInt(loadedModel[i].name.substring(14,17));
-                if(stickerNum == (num + 1))
-                {
+                if(tubeNum == num){
                     let tmpModel = loadedModel[i];
                     setTimeout(() => {
                         addIlluminateAnimation(tmpModel);
@@ -135,14 +108,12 @@ document.getElementById('btn-remove').addEventListener('click',function(){
             }
         }
         else{
-            //check tube
-            if(loadedModel[i].name.includes('tube-') && !loadedModel[i].name.includes('tube-sticker')){
-                var tubeNum = parseInt(loadedModel[i].name.substring(5,7));
-                if(tubeNum == num) addIlluminateAnimation(loadedModel[i]);
-            }
-            if(loadedModel[i].name.includes('tube-sticker-')){
-                var stickerNum = parseInt(loadedModel[i].name.substring(14,17));
-                if(stickerNum == num) addIlluminateAnimation(loadedModel[i]);
+            if(loadedModel[i].name.includes('sticker-')){
+                var tubeNum = parseInt(loadedModel[i].name.substring(8,11));
+                if(tubeNum == num){
+                    let tmpModel = loadedModel[i];
+                    addIlluminateAnimation(tmpModel);
+                }
             }
         }
     }
